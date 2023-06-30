@@ -72,6 +72,16 @@ export const EDIT_CAR = gql`
     }
 `
 
+export const EDIT_PERSON = gql`
+    mutation EditPerson($id: String!, $firstName: String!, $lastName: String!){
+        edit_person(id: $id, firstName: $firstName, lastName: $lastName){
+            id
+            firstName
+            lastName
+        }
+    }
+`
+
 export const GET_PERSON_BY_ID = gql`
     query GetPerson($id: String!){
         find_person_by_ID(id: $id){
@@ -91,6 +101,16 @@ export const REMOVE_CAR = gql`
             model
             price
             personId
+        }
+    }
+`
+
+export const REMOVE_PERSON = gql`
+    mutation RemovePerson($id: String!){
+        remove_person(id: $id){
+            id
+            firstName
+            lastName
         }
     }
 `

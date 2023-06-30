@@ -66,7 +66,7 @@ const AddPersonForm = (props) => {
         everyone.push(obj)
     }
 
-    let first_person = everyone[0].label;
+    let first_person = everyone[0]?.label;
 
     /*----------------------------------------*/
 

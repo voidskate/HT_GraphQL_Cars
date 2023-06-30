@@ -126,7 +126,9 @@ const peopleArray = [
 		add_person(id: String!, firstName: String!, lastName: String!): Person
 		add_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
 		edit_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
+		edit_person(id: String!, firstName: String!, lastName: String!): Person
 		remove_car(id: String!): Car
+		remove_person(id: String!): Person
 	}
 `
 
@@ -202,6 +204,20 @@ const resolvers = {
 			return get_car
 		},
 
+		edit_person: (root, args) => {
+			const get_person = find(peopleArray, { id: args.id })
+
+			if(get_person){
+				get_person.id = args.id;
+				get_person.firstName = args.firstName,
+				get_person.lastName = args.lastName;
+			} else {
+				throw new Error(`Person id: ${args.id} not found.`)
+			}
+
+			return get_person
+		},
+
 		remove_car: (root, args) => {
 			const get_car = find(carsArray, { id: args.id });
 
@@ -214,6 +230,20 @@ const resolvers = {
 			}
 
 			return get_car
+		},
+
+		remove_person: (root, args) => {
+			const get_person = find(peopleArray, { id: args.id });
+
+			if(get_person){
+				remove(peopleArray, c => {
+					return c.id === get_person.id
+				})
+			} else {
+				throw new Error(`Person id: ${args.id} not found.`)
+			}
+
+			return get_person
 		}
 	}
 }

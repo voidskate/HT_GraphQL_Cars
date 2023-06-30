@@ -66,7 +66,7 @@ const AddCarForm = (props) => {
         everyone.push(obj)
     }
 
-    let first_person = everyone[0].label;
+    let first_person = everyone[0]?.label;
 
     /*----------------------------------------*/
 
@@ -99,93 +99,97 @@ const AddCarForm = (props) => {
 
     return (
         <>
-        <Divider style={{ width: "756px", minWidth: "756px" }}/>
-        <h2 style={styles.heading}>Add a new car:</h2>
-        <Form
-            form={form}
-            name="add-car-form"
-            layout="horizontal"
-            size="medium"
-            style={styles.form}
-            onFinish={addNewCar}
-        >
-            {/*----- INPUT: BRAND (MAKE) -----*/}
-            <Form.Item
-                style={styles.formItem}
-                label="Brand:"
-                name="make"
-                rules={[{ required: true, message: "Car brand must not be empty" }]}
-            >
-                <Input placeholder="Brand"/>
-            </Form.Item>
+            { first_person ? (
+                <>
+                <Divider style={{ width: "756px", minWidth: "756px" }}/>
+                <h2 style={styles.heading}>Add a new car:</h2>
+                <Form
+                    form={form}
+                    name="add-car-form"
+                    layout="horizontal"
+                    size="medium"
+                    style={styles.form}
+                    onFinish={addNewCar}
+                >
+                    {/*----- INPUT: BRAND (MAKE) -----*/}
+                    <Form.Item
+                        style={styles.formItem}
+                        label="Brand:"
+                        name="make"
+                        rules={[{ required: true, message: "Car brand must not be empty" }]}
+                    >
+                        <Input placeholder="Brand"/>
+                    </Form.Item>
 
-            {/*----- INPUT: MODEL -----*/}
-            <Form.Item
-                style={styles.formItem}
-                label="Model:"
-                name="model"
-                rules={[{ required: true, message: "Model variant must not be empty." }]}
-            >
-                <Input placeholder="Model"/>
-            </Form.Item>
+                    {/*----- INPUT: MODEL -----*/}
+                    <Form.Item
+                        style={styles.formItem}
+                        label="Model:"
+                        name="model"
+                        rules={[{ required: true, message: "Model variant must not be empty." }]}
+                    >
+                        <Input placeholder="Model"/>
+                    </Form.Item>
 
-            {/*----- INPUT: YEAR -----*/}
-            <Form.Item
-                style={styles.formItem}
-                label="Year:"
-                name="year"
-                rules={[{ required: true, message: "Year field must not be empty." }]}
-            >
-                <Input placeholder="Year"/>
-            </Form.Item>
+                    {/*----- INPUT: YEAR -----*/}
+                    <Form.Item
+                        style={styles.formItem}
+                        label="Year:"
+                        name="year"
+                        rules={[{ required: true, message: "Year field must not be empty." }]}
+                    >
+                        <Input placeholder="Year"/>
+                    </Form.Item>
 
-            {/*----- INPUT: PRICE -----*/}
-            <Form.Item
-                style={styles.formItem}
-                label="Price:"
-                name="price"
-                rules={[{ required: true, message: "Price field must not be empty." }]}
-            >
-                <Input placeholder="Price" addonBefore="$"/>
-            </Form.Item>
+                    {/*----- INPUT: PRICE -----*/}
+                    <Form.Item
+                        style={styles.formItem}
+                        label="Price:"
+                        name="price"
+                        rules={[{ required: true, message: "Price field must not be empty." }]}
+                    >
+                        <Input placeholder="Price" addonBefore="$"/>
+                    </Form.Item>
 
-            <Form.Item
-                style={styles.formItem}
-                label="Owner:"
-                name="personId"
-                rules={[{ required: true, message: "Car must have an owner."}]}
-            >
-                <Select
-                    defaultValue={first_person}
-                    options={everyone}
-                />
-            </Form.Item>
+                    <Form.Item
+                        style={styles.formItem}
+                        label="Owner:"
+                        name="personId"
+                        rules={[{ required: true, message: "Car must have an owner."}]}
+                    >
+                        <Select
+                            defaultValue={first_person}
+                            options={everyone}
+                        />
+                    </Form.Item>
 
-            {/*----- BUTTON: SUBMIT -----*/}  
-            <Form.Item
-                shouldUpdate={true}
-                style={styles.submitCont}
-            >
-                {() => (
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        style={styles.submitBtn}
-                        disabled={
-                            (
-                                !form.isFieldTouched("id") &&
-                                !form.isFieldTouched("year") &&
-                                !form.isFieldTouched("make") &&
-                                !form.isFieldTouched("model") &&
-                                !form.isFieldTouched("price") &&
-                                !form.isFieldTouched("personId")
-                            ) ||
-                            form.getFieldsError().filter(({ errors }) => errors.length).length
-                        }
-                    >Add Car</Button>
-                )}
-            </Form.Item>
-        </Form>
+                    {/*----- BUTTON: SUBMIT -----*/}  
+                    <Form.Item
+                        shouldUpdate={true}
+                        style={styles.submitCont}
+                    >
+                        {() => (
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                style={styles.submitBtn}
+                                disabled={
+                                    (
+                                        !form.isFieldTouched("id") &&
+                                        !form.isFieldTouched("year") &&
+                                        !form.isFieldTouched("make") &&
+                                        !form.isFieldTouched("model") &&
+                                        !form.isFieldTouched("price") &&
+                                        !form.isFieldTouched("personId")
+                                    ) ||
+                                    form.getFieldsError().filter(({ errors }) => errors.length).length
+                                }
+                            >Add Car</Button>
+                        )}
+                    </Form.Item>
+                </Form>
+                </>
+            ) : ("")}
         </>
     )
 }
