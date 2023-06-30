@@ -24,16 +24,37 @@ export const GET_PEOPLE = gql`
 `
 
 export const PERSON_WITH_CARS = gql`
-    query {
-        find_cars_by_personID {
-            cars {
-                id
-                year
-                make
-                model
-                price
-                personId
-            }
+    query HasCars($personId: String!){
+        find_cars_by_personID(personId: $personId){
+            id
+            year
+            make
+            model
+            price
+            personId
+        }
+    }
+`
+
+export const EDIT_CAR = gql`
+    mutation EditCar($id: String!, $year: Int!, $make: String!, $model: String!, $price: Float!, $personId: String!){
+        edit_car(id: $id, year: $year, make: $make, model: $model, price: $price, personId: $personId){
+            id
+            year
+            make
+            model
+            price
+            personId
+        }
+    }
+`
+
+export const GET_PERSON_BY_ID = gql`
+    query GetPerson($id: String!){
+        find_person_by_ID(id: $id){
+            id
+            firstName
+            lastName
         }
     }
 `

@@ -8,6 +8,7 @@ import EditCarForm from "../forms/EditCarForm";
 
 const someStyling = () => ({
     card: {
+        marginTop: "16px"
     },
 
     ul: {
@@ -19,9 +20,10 @@ const someStyling = () => ({
     card_opened_wrapper: {
         display: "flex",
         flexDirection: "column",
-        height: "100%",
+        height: "calc(100% - 16px)",
         boxSizing: "border-box",
-        flex: "1"
+        flex: "1",
+        marginTop: "16px"
     },
 
     card_opened_body: {
@@ -86,16 +88,6 @@ const CarCard = (props) => {
 
             {/* if editMode, show the edit car form */}
             {editMode ? (
-                // <CarForm
-                //     onBtnClick={editClick}
-                //     id={id}
-                //     year={year}
-                //     make={make}
-                //     model={model}
-                //     price={price}
-                //     personId={personId}
-                // />
-                // <p>edit form activated</p>
                 <>
                     <Card
                         style={styles.card_opened_wrapper}

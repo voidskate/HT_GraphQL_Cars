@@ -120,6 +120,10 @@ const peopleArray = [
         find_cars_by_personID(personId: String!): [Car]
         find_cars_by_brand(make: String!): [Car]
     }
+
+	type Mutation {
+		edit_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
+	}
 `
 
 // note to self: add Mutation next
@@ -147,9 +151,26 @@ const resolvers = {
 		// 🚕 return all cars from a certain brand
 		find_cars_by_brand: (parent, args, contacts, info) => {
 			return carsArray.filter(brand => brand.make === args.make);
+		}		  
+    },
+
+	Mutation: {
+		edit_car: (root, args) => {
+			const get_car = find(carsArray, { id: args.id })
+
+			if(get_car){
+				get_car.make = args.make;
+				get_car.model = args.model,
+				get_car.year = args.year;
+				get_car.personId = args.personId;
+				get_car.price = args.price
+			} else {
+				throw new Error(`Car id: ${args.id} not found.`)
+			}
+
+			return get_car
 		}
-		  
-    }
+	}
 }
 
 export { typeDefs, resolvers }

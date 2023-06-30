@@ -8,12 +8,15 @@ const someStyling = () => ({
     },
 
     cardHead: {
-        background: "#f9f9fb"
+        position: "relative",
+        background: "#f9f9fb",
     },
 
     cardBody: {
         background: "#fdfdfe",
-        borderTop: "1px solid #f0f0f0"
+        borderTop: "1px solid #f0f0f0",
+        gridGap: "20px",
+        marginTop: "-16px"
     },
 
     ul: {
@@ -43,7 +46,7 @@ const PersonCard = (props) => {
             bodyStyle={styles.cardBody}
         >
             <Row gutter={16}>
-                { data.cars.map(({ id, year, make, model, price, personId }) => (
+                { data.cars.length ? data.cars.map(({ id, year, make, model, price, personId }) => (
                     // show all the cars owned by THIS person
                     (person_self_ID === personId) ? (
                     <Col key={id} span={8}>
@@ -56,7 +59,11 @@ const PersonCard = (props) => {
                             personId={personId}
                         />
                     </Col>) : ("")
-                ))}
+                )) :
+                    <Col span={8}>
+                        No cars detected in the database.
+                    </Col>
+                }
             </Row>
         </Card>
     )
