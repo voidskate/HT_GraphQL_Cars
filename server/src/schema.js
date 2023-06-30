@@ -103,23 +103,22 @@ const peopleArray = [
     }
 
     type Car {
-		id: String!
-		year: String
-		make: String
-		model: String
-		price: String
-		personId: String
+      id: String!
+      year: String
+      make: String
+      model: String
+      price: String
+      personId: String
     }
 
-    type Query {
-		
+    type Query {		
         people: [Person]
-		find_person_by_ID(id: String!): Person
+        find_person_by_ID(id: String!): Person
 
-		cars: [Car]
-		find_car_by_ID(id: String!): Car
-		find_cars_by_personID(personId: String!): [Car]
-		find_cars_by_brand(make: String!): [Car]
+        cars: [Car]
+        find_car_by_ID(id: String!): Car
+        find_cars_by_personID(personId: String!): [Car]
+        find_cars_by_brand(make: String!): [Car]
     }
 `
 
