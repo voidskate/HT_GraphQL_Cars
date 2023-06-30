@@ -22,3 +22,18 @@ export const GET_PEOPLE = gql`
         }
     }
 `
+
+export const PERSON_WITH_CARS = gql`
+    query {
+        find_cars_by_personID {
+            cars {
+                id
+                year
+                make
+                model
+                price
+                personId
+            }
+        }
+    }
+`
