@@ -1,3 +1,5 @@
+import { useMutation } from '@apollo/client'
+import filter from 'lodash.filter'
 import { Card, Modal } from "antd";
 
 import { useState } from "react";
@@ -5,6 +7,7 @@ import { useState } from "react";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import EditCarForm from "../forms/EditCarForm";
+import { GET_CARS, REMOVE_CAR } from "../../queries";
 
 const someStyling = () => ({
     card: {
@@ -54,16 +57,30 @@ const CarCard = (props) => {
         setIsModalOpen(true);
     }
 
+    const [remove_car] = useMutation(REMOVE_CAR, {
+        update(cache, { data: { remove_car } }) {
+          const { cars } = cache.readQuery({ query: GET_CARS })
+          cache.writeQuery({
+            query: GET_CARS,
+            data: {
+              cars: filter(cars, c => {
+                return c.id !== remove_car.id
+              })
+            }
+          })
+        }
+      })
+
     const deleteAction = () => {
-        alert("delete?")
-        // let result = window.confirm('Are you sure you want to delete this contact?')
-        // if (result) {
-        //     remove_contact({
-        //         variables: {
-        //             id
-        //         }
-        //     })
-        // }
+        // alert("delete?")
+        let result = window.confirm('Are you sure you want to delete this car?')
+        if (result) {
+            remove_car({
+                variables: {
+                    id
+                }
+            })
+        }
     }
 
     const saveChanges = () => {

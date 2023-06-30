@@ -1,4 +1,5 @@
 import find from "lodash.find"
+import remove from "lodash.remove"
 
 const peopleArray = [
     {
@@ -123,6 +124,7 @@ const peopleArray = [
 
 	type Mutation {
 		edit_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
+		remove_car(id: String!): Car
 	}
 `
 
@@ -134,22 +136,22 @@ const resolvers = {
 		cars: () => carsArray,
 
 		// 🧍 return a person via knowing their ID
-        find_person_by_ID: (parent, args, contacts, info) => {
+        find_person_by_ID: (parent, args, info) => {
             return find(peopleArray, { id: args.id })
         },
 
 		// 🚕 return a car via knowing its ID
-        find_car_by_ID: (parent, args, contacts, info) => {
+        find_car_by_ID: (parent, args, info) => {
             return find(carsArray, { id: args.id })
         },
 
 		// 🚕 find out the cars that a certain person owns
-		find_cars_by_personID: (parent, args, contacts, info) => {
+		find_cars_by_personID: (parent, args, info) => {
 			return carsArray.filter(car => car.personId === args.personId);
 		},
 
 		// 🚕 return all cars from a certain brand
-		find_cars_by_brand: (parent, args, contacts, info) => {
+		find_cars_by_brand: (parent, args, info) => {
 			return carsArray.filter(brand => brand.make === args.make);
 		}		  
     },
@@ -164,6 +166,20 @@ const resolvers = {
 				get_car.year = args.year;
 				get_car.personId = args.personId;
 				get_car.price = args.price
+			} else {
+				throw new Error(`Car id: ${args.id} not found.`)
+			}
+
+			return get_car
+		},
+
+		remove_car: (root, args) => {
+			const get_car = find(carsArray, { id: args.id });
+
+			if(get_car){
+				remove(carsArray, c => {
+					return c.id === get_car.id
+				})
 			} else {
 				throw new Error(`Car id: ${args.id} not found.`)
 			}
