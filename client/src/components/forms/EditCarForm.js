@@ -173,12 +173,6 @@ const CarForm = (props) => {
             >
                 <Select
                     defaultValue="John Mulaney"
-                    // options={[
-                    //     { label: "Person A", value: "personA" },
-                    //     { label: "Person B", value: "personB" },
-                    //     { label: "Person C", value: "personC" }
-                    // ]}
-
                     options={everyone}
                 />
             </Form.Item>

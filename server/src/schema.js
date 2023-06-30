@@ -123,6 +123,7 @@ const peopleArray = [
     }
 
 	type Mutation {
+		add_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
 		edit_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
 		remove_car(id: String!): Car
 	}
@@ -157,6 +158,21 @@ const resolvers = {
     },
 
 	Mutation: {
+		add_car: (root, args) => {
+			const new_car = {
+				id: args.id,
+				year: args.year,
+				make: args.make,
+				model: args.model,
+				price: args.price,
+				personId: args.personId
+			}
+
+			carsArray.push(new_car)
+
+			return new_car
+		},
+
 		edit_car: (root, args) => {
 			const get_car = find(carsArray, { id: args.id })
 

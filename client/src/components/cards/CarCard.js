@@ -72,7 +72,6 @@ const CarCard = (props) => {
       })
 
     const deleteAction = () => {
-        // alert("delete?")
         let result = window.confirm('Are you sure you want to delete this car?')
         if (result) {
             remove_car({
@@ -148,7 +147,7 @@ const CarCard = (props) => {
                     ]}
                 >
                     <ul style={styles.ul}>
-                        <li><b>Car ID:</b> {id}</li>
+                        {/* <li><b>Car ID:</b> {id}</li> */}
                         <li><b>Brand:</b> {make}</li>
                         <li><b>Model:</b> {model}</li>
                         <li><b>Price:</b> {price_formatted}</li>
