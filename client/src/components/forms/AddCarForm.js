@@ -4,7 +4,7 @@ import { GET_PEOPLE, ADD_CAR, GET_CARS } from '../../queries'
 
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { Form, Input, Button, Select } from 'antd'
+import { Divider, Form, Input, Button, Select } from 'antd'
 
 const someStyling = () => ({
     heading: {
@@ -15,8 +15,7 @@ const someStyling = () => ({
         width: "756px",
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gridGap: "5px 20px",
-        marginBottom:"2em"
+        gridGap: "5px 20px"
     },
 
     submitCont: {
@@ -100,10 +99,11 @@ const AddCarForm = (props) => {
 
     return (
         <>
+        <Divider style={{ width: "756px", minWidth: "756px" }}/>
         <h2 style={styles.heading}>Add a new car:</h2>
         <Form
             form={form}
-            name="edit-car-form"
+            name="add-car-form"
             layout="horizontal"
             size="medium"
             style={styles.form}

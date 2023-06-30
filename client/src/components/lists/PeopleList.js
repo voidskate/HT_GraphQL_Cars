@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_PEOPLE } from "../../queries";
-import { List } from "antd";
+import { Divider, List } from "antd";
 
 import PersonCard from "../cards/PersonCard";
 
@@ -26,6 +26,8 @@ const PeopleList = () => {
     console.log("data", data);
 
     return (
+        <>
+        <Divider style={{ width: "756px", minWidth: "756px", marginBottom: "34px" }}/>
         <List
             grid={{ gutter: 20, column: 1}}
             style={styles.list}
@@ -40,6 +42,7 @@ const PeopleList = () => {
                 </List.Item>
             ))}
         </List>
+        </>
     )
 }
 

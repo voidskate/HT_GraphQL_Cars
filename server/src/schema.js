@@ -123,6 +123,7 @@ const peopleArray = [
     }
 
 	type Mutation {
+		add_person(id: String!, firstName: String!, lastName: String!): Person
 		add_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
 		edit_car(id: String!, year: Int!, make: String!, model: String!, price: Float!, personId: String!): Car
 		remove_car(id: String!): Car
@@ -158,6 +159,18 @@ const resolvers = {
     },
 
 	Mutation: {
+		add_person: (root, args) => {
+			const new_person = {
+				id: args.id,
+				firstName: args.firstName,
+				lastName: args.lastName
+			}
+
+			peopleArray.push(new_person)
+
+			return new_person
+		},
+
 		add_car: (root, args) => {
 			const new_car = {
 				id: args.id,
